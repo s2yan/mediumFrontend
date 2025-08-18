@@ -7,7 +7,7 @@ export default function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordType, setPasswordType] = useState("password");
-  const { loggedUser, setLoggedUser } = useContext(UserContext);
+  const { loggedUser, setLoggedUser, user, setUser } = useContext(UserContext);
 
   const onLoginFormSubmit = async (e) => {
     e.preventDefault();
@@ -30,6 +30,36 @@ export default function Signin() {
       console.log("User logged in successfully", response.data);
     } catch (error) {
       console.log("Error logging user", error.response?.data || error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (loggedUser) {
+      getLoggedUserDetails();
+    } else {
+      getUserLoggedOut();
+    }
+  }, [loggedUser]);
+
+  const getLoggedUserDetails = async () => {
+    try {
+      const res = await fetch("http://localhost:8000/api/v1/user/getUser");
+      const resData = await res.json();
+
+      console.log(resData.data);
+    } catch (error) {
+      console.log("Something went wrong while fetcing the user data", error);
+    }
+  };
+
+  const getUserLoggedOut = async () => {
+    try {
+      const res = await fetch("http://localhost:8000/api/v1/user/logout");
+      const resData = await res.json();
+
+      console.log(resData.data);
+    } catch (error) {
+      console.log("Something went wrong while logging user out", error);
     }
   };
 
