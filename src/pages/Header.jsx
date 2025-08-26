@@ -1,6 +1,14 @@
 import { NavLink } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import UserContext from "../Contexts/UserContext";
 
 export default function Header() {
+
+  const { loggedUser } = useContext(UserContext)
+  useEffect(() => {
+    console.log("user status: ", loggedUser)
+  },[loggedUser])
+
   return (
     <header className="sticky z-50 top-0 bg-[#1e1e1e]">
       <nav className="flex justify-between items-center px-6 py-4">
@@ -35,9 +43,11 @@ export default function Header() {
                 `${isActive ? "text-orange-400" : "text-white"} hover:text-orange-400 transition-colors duration-200`
               }
             >
-              Contact Us
+              Contact Us 
             </NavLink>
           </li>
+          { !loggedUser && 
+          <>
           <li>
             <NavLink
               to="/signup"
@@ -58,6 +68,22 @@ export default function Header() {
               LogIn
             </NavLink>
           </li>
+          </>
+          }
+          {
+            loggedUser && (
+              <li> 
+                <NavLink
+                to="/createPost"
+                className={({ isActive }) => 
+                  `${isActive ? "text-black": "text-white"} transition-colors duration-200`
+                }
+                >
+                  Write
+                </NavLink>
+              </li>
+            )
+          }
         </ul>
       </nav>
     </header>

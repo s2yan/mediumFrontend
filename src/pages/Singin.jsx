@@ -24,26 +24,27 @@ export default function Signin() {
       );
 
       const token = response.data.data.accessToken;
-      document.cookie = `accessToken=${token}; path=/; sameSite=Lax`;
-      setLoggedUser((prev) => !prev);
+      document.cookie = `accessToken=${token}; path=/; sameSite=Lax; Secure`;
+      setLoggedUser(true);
 
       console.log("User logged in successfully", response.data);
     } catch (error) {
       console.log("Error logging user", error.response?.data || error.message);
+      setLoggedUser(false)
     }
   };
 
   useEffect(() => {
     if (loggedUser) {
       getLoggedUserDetails();
-    } else {
-      getUserLoggedOut();
-    }
+    } 
   }, [loggedUser]);
 
   const getLoggedUserDetails = async () => {
     try {
-      const res = await fetch("http://localhost:8000/api/v1/user/getUser");
+      const res = await fetch("http://localhost:8000/api/v1/user/getUser", {
+        credentials: "Include"
+      });
       const resData = await res.json();
 
       console.log(resData.data);
