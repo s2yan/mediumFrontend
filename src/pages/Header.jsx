@@ -76,7 +76,7 @@ export default function Header() {
                 <NavLink
                 to="/createPost"
                 className={({ isActive }) => 
-                  `${isActive ? "text-black": "text-white"} transition-colors duration-200`
+                  `${isActive ? "text-orange:400": "text-white"} hover:text-orange-400 transition-colors duration-200`
                 }
                 >
                   Write
