@@ -9,7 +9,8 @@ import {
     MdOutlineFormatAlignCenter, 
     MdOutlineFormatAlignLeft,
     MdOutlineFormatAlignRight,
-    MdOutlineFormatAlignJustify
+    MdOutlineFormatAlignJustify,
+    MdOutlineImage
 
 } from "react-icons/md";
 
@@ -44,7 +45,8 @@ const buttonElements = [
     { id: "center", label: "center", icon: <MdOutlineFormatAlignCenter />},
     { id: "left", label: "left", icon: <MdOutlineFormatAlignLeft />},
     { id: "right", label: "right", icon: <MdOutlineFormatAlignRight />},
-    { id: "justify", label: "justify", icon: <MdOutlineFormatAlignJustify /> }
+    { id: "justify", label: "justify", icon: <MdOutlineFormatAlignJustify /> },
+    { id: "image", label: "image", icon: <MdOutlineImage /> }
 ] 
 
 
