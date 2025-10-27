@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"; 
 import { INSERT_IMAGE_COMMAND } from "../Plugins/ImagePlugin";
 
-export const ImageModal = ({ url, setURL, setShowImageInput }) => {
+export const ImageModal = ({ url, setURL, setShowImageInput, ref }) => {
   const [editor] = useLexicalComposerContext();
   const [showUrlInput, setShowUrlInput] = useState(false);
   const [showFileInput, setShowFileInput] = useState(false);
@@ -14,9 +14,14 @@ export const ImageModal = ({ url, setURL, setShowImageInput }) => {
     setShowFileInput(false);
   };
 
+  const modalDivClick = () =>{
+    //console.log("outside of modal container clicked")
+    setShowImageInput(false)
+  }
+
   return (
-    <div className="fixed inset-0 bg-gray-100 bg-opacity-80 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md space-y-4">
+    <div className="fixed inset-0 bg-gray-300/50 flex items-center justify-center z-50" onClick={ modalDivClick }>
+      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md space-y-4" onClick={ e => e.stopPropagation()}>
         <h2 className="text-xl font-semibold text-center text-orange-600">Insert Image</h2>
 
         <div className="flex justify-center space-x-4">

@@ -1,8 +1,54 @@
 import { useState, useEffect } from "react";
+import { AiOutlineLike } from "react-icons/ai";
+import { AiFillLike } from "react-icons/ai";
+import { FaComment } from "react-icons/fa6";
+import axios from "axios";
 
-export default function PostCard({ post }) {
+export default function PostCard({ post, setPosts }) {
   const [profilePicture, setProfilePicture] = useState(null);
   const [username, setUsername] = useState("");
+  const [ like, setLike ] = useState(false);
+  const [ likeCount, setLikeCount ] = useState(0)
+
+  const handleOutlineLikeButtonClick = async () => {
+    setLike(true)
+    //console.log("Outine like clicked")
+    try{
+      const response = await fetch(`http://localhost:8000/api/v1/post/updateLike/${post._id}`,{
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      const responseData = await response.json()
+      setLikeCount(responseData.data.likes.length)
+
+    }catch(error){
+      console.log("Something went wrong while updating the like:", error);
+    }
+
+  }
+
+  const handleFillLikeButtonClick = async () => {
+    setLike(false)
+    //console.log("Fill like clicked")
+    try{
+      const response = await fetch(`http://localhost:8000/api/v1/post/removeLike/${post._id}`,{
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          "Content-Type" : "applcation/json"
+        }
+      })
+
+      const responseData = await response.json()
+      setLikeCount(responseData.data.likes.length);
+
+    }catch(error){
+      console.log("Something went wrong while removing the like: " + error)
+    }
+  }
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -38,6 +84,18 @@ export default function PostCard({ post }) {
         </div>
         <div>
           <p className="text-gray-700 text-sm">{post.content}</p>
+        </div>
+      </div>
+
+      {/* like and comment section */}
+      <div className="p-4 flex items-center">
+        <div className="p-2 mx-4">
+          <span>{ likeCount }</span>
+          { like === false ? <AiOutlineLike onClick={ ()=> handleOutlineLikeButtonClick() }/> : <AiFillLike onClick={ () => handleFillLikeButtonClick()} /> }
+        </div>
+
+        <div className="p-2 mx-4">
+          <FaComment />
         </div>
       </div>
     </div>

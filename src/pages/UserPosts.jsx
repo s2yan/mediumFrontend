@@ -25,7 +25,7 @@ export default function UserPosts(){
 
     return(
 	<>
-	    { posts.map( (post) =>  ( <PostCard key={post._id} post={ post } />)) }
+	    { posts.map( (post) =>  ( <PostCard key={post._id} post={ post } setPosts= { setPosts } />)) }
 	</>
     )
 }

@@ -8,6 +8,7 @@ import Signin from "./pages/Singin";
 import Editor from "./pages/Editor";
 import UserContext from "./Contexts/UserContext.js";
 import { Navigate } from "react-router-dom";
+import UserPosts from "./pages/UserPosts.jsx";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -49,6 +50,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
+            <Route path="" element={ loggedUser ? <UserPosts /> : "" }/>
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
             <Route path="signin" element= {

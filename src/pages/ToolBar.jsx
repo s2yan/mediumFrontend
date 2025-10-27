@@ -2,7 +2,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { buttonElements } from "../constants/ToolabarConstants.jsx";
 import { FORMAT_ELEMENT_COMMAND, FORMAT_TEXT_COMMAND, UNDO_COMMAND, REDO_COMMAND } from "lexical";
 import { ImageModal } from "../components/ImageModal.jsx";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { createPortal } from "react-dom";
 
 
@@ -11,6 +11,8 @@ export default function ToolBar(){
     const [ editor ] = useLexicalComposerContext()
     const [ url, setURL ] = useState("")
     const [ showImageInput, setShowImageInput ] = useState(false)
+
+    const ref = useRef("modal-container")
 
     const onClickAction = (id) => {
         
@@ -78,8 +80,8 @@ export default function ToolBar(){
             {
                 showImageInput && (
                     createPortal(
-                        <ImageModal url={url} setShowImageInput={setShowImageInput} setURL={setURL}/>,
-                        document.getElementById("modal-root")
+                        <ImageModal url={url} setShowImageInput={setShowImageInput} setURL={setURL} ref={ref} />,
+                        document.getElementById("root")
                     )
                 )
             }
