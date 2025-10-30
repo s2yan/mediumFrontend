@@ -10,10 +10,9 @@ import UserContext from "./Contexts/UserContext.js";
 import { Navigate } from "react-router-dom";
 import UserPosts from "./pages/UserPosts.jsx";
 import { LandingPage } from "./pages/LandingPage.jsx";
+import FullPost from "./components/FullPost.jsx";
 
 function App() {
-  const [posts, setPosts] = useState([]);
-  const [userDetails, setUserDetails] = useState([]);
 
   const { loggedUser, setLoggedUser } = useContext(UserContext);
 
@@ -55,6 +54,7 @@ function App() {
             <Route path="createPost" element={
               loggedUser ? <Editor /> : <Navigate to="/"/>
             }/>
+            <Route path="post/:id" element= { <FullPost />}/>
           </Route>
         </Routes>
       </BrowserRouter>

@@ -4,13 +4,16 @@ import './index.css'
 import App from './App.jsx'
 import { UserContextProvider } from './Contexts/UserContextProvider.jsx';
 import { PostContextProvider } from './Contexts/PostContextProvider.jsx';
+import { PostIdContextProvider } from './Contexts/PostIdContextProvider.jsx';
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
 	<UserContextProvider>
 	    <PostContextProvider>
-			<App />
+			<PostIdContextProvider>
+				<App />	
+			</PostIdContextProvider>
 	    </PostContextProvider>
 	</UserContextProvider>
   </StrictMode>,
