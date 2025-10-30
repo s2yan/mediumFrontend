@@ -80,16 +80,16 @@ export default function PostCard({ post, setPosts }) {
       {/* Post Content */}
       <div className="p-4">
         <div className="mb-2">
-          <h2 className="text-xl font-bold text-gray-900">{post.title}</h2>
+          <h2 className="text-xl font-bold text-gray-900" dangerouslySetInnerHTML={{ __html: post.title}} />
         </div>
         <div>
-          <p className="text-gray-700 text-sm">{post.content}</p>
+          <p className="text-gray-700 text-sm" dangerouslySetInnerHTML={{ __html : post.content }} />
         </div>
       </div>
 
       {/* like and comment section */}
       <div className="p-4 flex items-center">
-        <div className="p-2 mx-4">
+        <div className="p-2 mx-4 flex gap-x-2 items-center">
           <span>{ likeCount }</span>
           { like === false ? <AiOutlineLike onClick={ ()=> handleOutlineLikeButtonClick() }/> : <AiFillLike onClick={ () => handleFillLikeButtonClick()} /> }
         </div>

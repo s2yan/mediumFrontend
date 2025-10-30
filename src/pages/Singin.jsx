@@ -13,32 +13,26 @@ export default function Signin() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/v1/user/login",
-        { email, password },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
+      const response = await fetch("http://localhost:8000/api/v1/user/login", {
+        method: "POST",
+        headers:{
+          "Content-Type" : "application/json"
         },
-      );
+        credentials: "include",
+        body: JSON.stringify({
+          email,
+          password
+        })
+      });
 
-      const token = response.data.data.accessToken;
-      document.cookie = `accessToken=${token}; path=/; sameSite=Lax; Secure`;
-      setLoggedUser(true);
-
-      console.log("User logged in successfully", response.data);
+      const resData = await response.json()
+      setLoggedUser(true)
+      
     } catch (error) {
       console.log("Error logging user", error.response?.data || error.message);
       setLoggedUser(false)
     }
   };
-
-  useEffect(() => {
-    if (loggedUser) {
-      getLoggedUserDetails();
-    } 
-  }, [loggedUser]);
 
   const getLoggedUserDetails = async () => {
     try {
